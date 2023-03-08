@@ -28,7 +28,13 @@ app.get("/", function(req, res){
 })
 
 app.get("/canal/youtube", function(req, res){
-  res.send("<h1>Bem vindo ao meu canal!</h1>");
+  var canal = req.query["canal"];
+  // res.send("<h1>Bem vindo ao meu canal!</h1>");
+  if (canal) {
+  res.send(canal);
+} else {
+    res.send("Nenhum canal forncedio!");
+  }
 })
 
 // Criando parâmetros na Rota
