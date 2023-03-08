@@ -14,16 +14,35 @@ const app = express(); // Iniciando o express
 
 // (requisição, resposta)
 app.get("/", function(req, res){
-  res.send("<h1>Bem Vindo ao Guia do Programador!</h1>");
 });
 
-app.get("/blog", function(req, res) {
+// app.get("/blog", function(req, res) {
+  app.get("/blog/:artigo?", function(req, res) {
+    var artigo = req.params.artigo;
+    if (artigo) {
+      res.send("<h2>Artigo " + artigo + "</h2>");
+    } else {
+      res.send("<h3>Bem vindo ao meu blog!</h3>");
+    }
   res.send("<h3>Bem vindo ao meu blog!</h3>");
 })
 
 app.get("/canal/youtube", function(req, res){
   res.send("<h1>Bem vindo ao meu canal!</h1>");
 })
+
+// Criando parâmetros na Rota
+// Apenas acessível se passar um parâmetro
+// app.get("/ola/:nome", function(req, res) {
+app.get("/ola/:nome/:empresa", function(req, res) {
+  // REQ => DADOS ENVIADOS PELO USUÁRIO
+  // RES => RESPOSTA QUE VAI SER ENVIADA PARA O USUÁRIO
+  // res.send("<h1>Oi!</h1>");
+  // res.send(req.params.nome);
+  var nome = req.params.nome;
+  var empresa = req.params.empresa;
+  res.send("<h1>Oi " + nome + " do " + empresa + "</h1>")
+});
 
 app.listen(4000, function(erro){
   if (erro) {
