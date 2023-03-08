@@ -14,11 +14,11 @@ const app = express(); // Iniciando o express
 
 // (requisição, resposta)
 app.get("/", function(req, res){
-  res.send("Bem Vindo ao Guia do Programador!");
+  res.send("<h1>Bem Vindo ao Guia do Programador!</h1>");
 });
 
 app.get("/blog", function(req, res) {
-  res.send("Bem vindo ao meu blog!");
+  res.send("<h3>Bem vindo ao meu blog!</h3>");
 })
 
 app.get("/canal/youtube", function(req, res){
