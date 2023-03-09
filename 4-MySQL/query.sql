@@ -37,7 +37,6 @@ INSERT INTO usuarios(idade, email, nome)VALUES(
 );
 
 -- No console direto do MySQL --
-
 -- Inverter ordens não funciona mais no MySQL
 INSERT INTO usuarios(idade, email, nome)VALUES(
   8
@@ -52,3 +51,14 @@ SELECT * FROM usuarios;
 SELECT * FROM usuarios WHERE idade = 8;
 SELECT * FROM usuarios WHERE nome = "Lucas";
 SELECT * FROM usuarios WHERE idade >= 18;
+
+-- Deletando Registro no MySQL;
+
+-- Desta forma deleta todos registros da tabela
+DELETE FROM usuarios; 
+-- Desta forma deleta todos registros da tabela que tem nome Victor
+DELETE FROM usuarios WHERE nome = "Victor"; 
+
+-- No console direto do MySQL --
+SELECT * FROM usuarios;
+
