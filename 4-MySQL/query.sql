@@ -62,3 +62,11 @@ DELETE FROM usuarios WHERE nome = "Victor";
 -- No console direto do MySQL --
 SELECT * FROM usuarios;
 
+-- Desta forma aletara todos registros da tabela
+UPDATE usuarios SET nome = "Nome de Teste";
+
+-- Mas com a clausula WHERE filtra os registros alvos
+UPDATE usuarios SET nome = "Nome de Teste" WHERE nome = "Luis Silva";
+
+-- No console direto do MySQL --
+SELECT * FROM usuarios;
