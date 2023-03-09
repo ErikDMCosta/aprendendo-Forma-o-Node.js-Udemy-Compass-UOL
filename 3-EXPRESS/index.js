@@ -1,7 +1,7 @@
 const express = require("express"); // Importante o express
 const app = express(); // Iniciando o express
 
-// FOrmas de Criar ROtas - Aprender Módulo Criar APIs
+// FOrmas de Criar Rotas - Aprender Módulo Criar APIs
 // app.get();
 // app.post();
 // app.delete();
