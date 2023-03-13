@@ -12,6 +12,7 @@ app.get("/:nome/:lang", (req, res) => {
   // var lang = "JavaScript";
   var nome = req.params.nome;
   var lang = req.params.lang;
+  var exibirMsg = true;
   // res.render("principal/perfil");
   res.render("index",{
     // nome: "ÉrikDMCosta",
@@ -19,7 +20,8 @@ app.get("/:nome/:lang", (req, res) => {
     nome: nome,
     lang: lang,
     empresa: "Guia do Programador",
-    inscritos: 8040
+    inscritos: 8040,
+    msg: exibirMsg
   });
 });
 
