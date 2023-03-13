@@ -14,7 +14,7 @@ app.get("/:nome/:lang", (req, res) => {
   var lang = req.params.lang;
   var exibirMsg = true;
   // res.render("principal/perfil");
-  res.render("index",{
+  res.render("/views/perguntar",{
     // nome: "ÉrikDMCosta",
     // lang: "JavaScript",
     nome: nome,
