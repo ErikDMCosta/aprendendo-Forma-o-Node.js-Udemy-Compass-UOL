@@ -23,6 +23,13 @@ app.use(bodyParser.json());
 // Rotas
 // app.get("/:nome/:lang", (req, res) => {
 app.get("/", (req, res) => {
+  Pergunta.findAll({ raw:true }).then(perguntas => {
+    //console.log(perguntas);
+    res.render("index", {
+      perguntas: perguntas
+    });
+  });
+  // SELECT * ALL FROM perguntas
   // res.send("Bem vindo ao meu site!");
   // res.render("index");
   // res.render("home");
