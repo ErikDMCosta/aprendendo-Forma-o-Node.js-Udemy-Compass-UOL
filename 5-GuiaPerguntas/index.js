@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require('./database/database');
-const perguntaModel = require('./database/Pergunta');
+const Pergunta = require('./database/Pergunta');
 // Database
 
 connection
@@ -13,7 +13,6 @@ connection
   .catch((msgErro) => {
     console.log(msgErro);
   });
-
 
 // Estou dizendo para o Express usar o EJS como view engine
 app.set('view engine', 'ejs');
@@ -62,7 +61,26 @@ app.get("/perguntar", (req, res) => {
 app.post("/salvarpergunta", (req, res) => {
   var titulo = req.body.titulo;
   var descricao = req.body.descricao;
-  res.send("Formulário recebido! titulo " + titulo + " " + " descricao " + descricao);
+  // res.send("Formulário recebido! titulo " + titulo + " " + " descricao " + descricao);
+  // '' INSERT INTO perguntas ... Pergunta
+
+  var titulo = req.body.titulo;
+  var descricao = req.body.descricao;
+  
+  Pergunta.create({
+    // titulo: {
+    //   type: Sequelize.STRING,
+    //   allowNull: false
+    // },
+    // descricao: {
+    //   type: Sequelize.TEXT,
+    //   allowNull: false
+    // }
+    titulo: titulo,
+    descricao: descricao
+  }).then(() => {
+    res.redirect("/");
+  });
 });
 
 app.listen(8080, () => { console.log("App rodando!"); })
