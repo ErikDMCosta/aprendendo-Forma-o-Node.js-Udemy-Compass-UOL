@@ -12,6 +12,7 @@
 				<h3>Responda</h3>
 				<label>Resposta</label>
 				<textarea placeholder="Digite sua resposta" class="form-control" name="corpo"></textarea><br>
+				<input type="hidden" placeholder="<%= pergunta.id %>" name="pergunta" readonly="true">
 				<button type="submit" class="btn btn-dark">Responder</button>
 			</form>
 			<hr>
