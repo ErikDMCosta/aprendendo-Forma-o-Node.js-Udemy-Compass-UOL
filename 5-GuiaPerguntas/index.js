@@ -59,7 +59,7 @@ app.get("/", (req, res) => {
   //   msg: exibirMsg,
   //   produtos: produtos
   // });
-  res.render("index");
+  // res.render("index");
 });
 app.get("/perguntar", (req, res) => {
   res.render("perguntar");
