@@ -3,6 +3,7 @@
 	<body>
 		<!-- <h1>Guia perguntas!</h1> -->
 		<%- include('partials/navbar.ejs') %>
+		<!-- <a href="/pergunta/3" class="btn btn-dark">Testar Link</a> -->
 			<!-- <h1>Estilo do bootstrap</h1> -->
 			<!-- <hr>
 	<h3>Lista de perguntas</h3>
@@ -40,12 +41,12 @@
 					<div class="card">
 						<div class="card-body">
 							<p>
-								<%= pergunta.titulo %>
+								<h3><%= pergunta.titulo %></h3>
 							</p>
 							<!-- <p><%= pergunta.descricao %></p> -->
 						</div>
 						<div class="card-footer">
-							<button class="btn btn-dark">Responder</button>
+							<a href="/pergunta/<%= pergunta.id %>"><button class="btn btn-dark">Responder</button></a>
 						</div>
 					</div>
 
