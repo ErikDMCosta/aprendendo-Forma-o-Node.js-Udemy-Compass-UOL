@@ -56,3 +56,27 @@ enviarEmail("Oi, seja bem vindo ao Guia", "erik@udemy.com", (time,erro) => {
 // app.get("/usuario", (req, res) => {
 
 // });
+
+// enviarEmailPromise => "Eu prometo que..."
+
+function enviarEmailPromise(corpo, para) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      var deuError = false;
+      console.log("EMAIL ENVIADO!");
+      if(!deuError) {
+        resolve(); // Promessa OK!
+      } else {
+        reject(); // Foi mal, eu falhei :(
+      }
+    },4000);
+  });
+}
+
+enviarEmailPromise("Olá Mundo","erik@udemy.com").then( () => {
+  var a = 1 + 1;
+  console.log("OPA, VOCÊ CONSEGUIU FAZER O QUE ME PROMETEU!");
+  console.log(a);
+}).catch(() => {
+  console.log("QUE PENA, NÃO DEU :(");
+});
