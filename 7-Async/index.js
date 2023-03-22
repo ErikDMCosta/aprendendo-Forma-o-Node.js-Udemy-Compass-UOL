@@ -65,17 +65,22 @@ function enviarEmailPromise(corpo, para) {
       var deuError = false;
       console.log("EMAIL ENVIADO!");
       if(!deuError) {
-        resolve(); // Promessa OK!
+        resolve({time: 6, to: "victor@udemt.com"}); // Promessa OK!
       } else {
-        reject(); // Foi mal, eu falhei :(
+        reject("Fila cheia"); // Foi mal, eu falhei :(
       }
     },4000);
   });
 }
 
-enviarEmailPromise("Olá Mundo","erik@udemy.com").then( () => {
-  var a = 1 + 1;
-  console.log("OPA, VOCÊ CONSEGUIU FAZER O QUE ME PROMETEU!");
+enviarEmailPromise("Olá Mundo","erik@udemy.com").then( ({ time, to }) => {
+  console.log(`
+    Time: ${dados.time}
+    ------------------
+    To: ${dados.to}
+  `);
+  // var a = 1 + 1;
+  // console.log("OPA, VOCÊ CONSEGUIU FAZER O QUE ME PROMETEU!");
   console.log(a);
 }).catch(() => {
   console.log("QUE PENA, NÃO DEU :(");
