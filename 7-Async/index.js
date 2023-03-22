@@ -103,6 +103,8 @@ enviarEmailPromise("Olá Mundo", "erik@udemy.com").then(({ time, to }) => {
   // console.log("QUE PENA, NÃO DEU :(");
 });
 
+// EVITE AO MÁXIMO COLOCAR UMA PROMISSE DENTRO DE OUTRA PROMISSE
+
 console.log("Inicio!");
 pegarId().then((id) => {
   buscarEmailNoBanco(id).then((email) => {
