@@ -26,7 +26,7 @@
   }, 8000);
 }
 
-console.log("Inicio do envio de e-mail!");
+// console.log("Inicio do envio de e-mail!");
 // enviarEmail("Oi, seja bem vindo ao Guia", "erik@udemy.com", (status,amount,time, name) => { // Não ignorando o paramêtro agora
 
 enviarEmail("Oi, seja bem vindo ao Guia", "erik@udemy.com", (time, erro) => {
@@ -103,16 +103,56 @@ enviarEmailPromise("Olá Mundo", "erik@udemy.com").then(({ time, to }) => {
   // console.log("QUE PENA, NÃO DEU :(");
 });
 
-// EVITE AO MÁXIMO COLOCAR UMA PROMISSE DENTRO DE OUTRA PROMISSE
+// EVITE AO MÁXIMO COLOCAR UMA PROMISSE DENTRO DE OUTRA PROMISSE (conhecido como PROMISSE HELL)
 
-console.log("Inicio!");
+// console.log("Inicio!");
 pegarId().then((id) => {
   buscarEmailNoBanco(id).then((email) => {
     enviarEmailPromise("Olá, como vai?", email).then(() => {
-      console.log("Email enviado, para ID: " + id);
+      // console.log("Email enviado, para ID: " + id);
     }).catch(err => {
       console.log(err);
     });
   })
 });
-console.log("FIM");
+// console.log("FIM");
+
+// Para evitar PROMISSE HELL usamos o recurso Async/Await
+
+function pegarUsuarios() {
+  return new Promise((resolve, reject) => {
+    resolve([
+      {name: "Érik", lang:"JS"},
+      {name: "Lima", lang:"C#"},
+      {name: "Daniel", lang:"Java"}
+    ])
+  })
+}
+
+async function principal() {
+
+  var usuarios = await pegarUsuarios;
+  console.log(usuarios);
+  console.log("OLÁ");
+
+  // pegarUsuarios().then(usuarios => {
+  //   console.log(usuarios)
+  // })
+  // console.log("OLÁ")
+
+  // var usuarios = await pegarUsuarios();
+  // console.log(usuarios);
+
+}
+
+principal();
+
+// var usuarios = await pegarUsuarios();
+
+// var usuarios = pegarUsuarios();
+
+pegarUsuarios().then((usuarios) => {
+  console.log(usuarios);
+});
+
+// console.log(usuarios);
