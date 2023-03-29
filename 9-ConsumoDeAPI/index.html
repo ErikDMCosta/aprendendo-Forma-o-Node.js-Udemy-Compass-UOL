@@ -12,7 +12,7 @@
   <ul id="games"></ul>
   <hr>
   <h4>Novo Game</h4>
-  <input type="text" name="title" id="title" placeholder="Título"><br>
+  <input type="text" name="title" id="title" placeholder="Título" data-nome=""><br>
   <input type="number" name="year" id="year" placeholder="Ano"><br>
   <input type="number" name="price" id="price" placeholder="Preço"><br>
   <button type="button" onclick="createGame()">Criar</button>
@@ -54,6 +54,11 @@
 
     games.forEach(game => {
       var item = document.createElement("li");
+      item.setAttribute("data-id",game.id);
+      item.setAttribute("data-title",game.title);
+      item.setAttribute("data-year",game.year);
+      item.setAttribute("data-price",game.price);
+
       // item.innerHTML = "Isso é um teste";
       // item.innerHTML = game.title;
       item.innerHTML = game.id + " - " + game.title + " - $ " + game.price + ",00";
