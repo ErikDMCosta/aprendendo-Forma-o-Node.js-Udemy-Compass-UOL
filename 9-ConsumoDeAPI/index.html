@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,13 +8,43 @@
   <title>Loja de Games</title>
   <hr>
   <h4>Lista de Games</h4>
+  <button type="button" onClick="recarregarAPagina()">Atualizar</button>
   <ul id="games"></ul>
+  <hr>
+  <h4>Novo Game</h4>
+  <input type="text" name="title" id="title" placeholder="Título"><br>
+  <input type="number" name="year" id="year" placeholder="Ano"><br>
+  <input type="number" name="price" id="price" placeholder="Preço"><br>
+  <button type="button" onclick="createGame()">Criar</button>
 </head>
+
 <body>
-  
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+  function createGame() {
+    var titleInput = document.getElementById("title");
+    var yearInput = document.getElementById("year");
+    var priceInput = document.getElementById("price");
+
+    var game = {
+      title: titleInput.value,
+      year: yearInput.value,
+      price: priceInput.value
+    }
+
+    // axios.post("http://localhost:45678/game", game);
+    axios.post("http://localhost:45678/game", game).then(response => {
+      if (response.status == 200) {
+        alert("Game Cadastrado!");
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+    // console.log(game);
+  }
   // console.log(axios);
   axios.get("http://localhost:45678/games").then(response => {
     // console.log(response);
@@ -32,5 +63,11 @@
   }).catch(error => {
     console.log(error);
   });
+
+  // Desafio Botão atualiza Página
+  function recarregarAPagina() {
+    window.location.reload();
+  }
 </script>
+
 </html>
