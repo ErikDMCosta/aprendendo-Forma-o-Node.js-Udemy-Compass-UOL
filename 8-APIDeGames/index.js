@@ -61,16 +61,17 @@ app.get("/game/:id",(req, res) => {
         }
     }
 });
-
+var IdG = 1;
 // CADASTRAR UM GAME
 app.post("/game",(req, res) => { 
     var {title, price, year} = req.body;
     DB.games.push({
-        id: 2323,
+        id: IdG,
         title,
         price,
         year
     });
+    IdG++;
     res.sendStatus(200);
 })
 
