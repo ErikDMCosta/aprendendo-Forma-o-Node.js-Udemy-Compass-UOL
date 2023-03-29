@@ -5,7 +5,7 @@ const cors = require("cors");
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
@@ -38,33 +38,36 @@ var DB = {
     ]
 }
 
-app.get("/games",(req, res) => {
+app.get("/games", (req, res) => {
     res.statusCode = 200;
     res.json(DB.games);
 });
 
-app.get("/game/:id",(req, res) => {
-    if(isNaN(req.params.id)){
+app.get("/game/:id", (req, res) => {
+    if (isNaN(req.params.id)) {
         // res.send("ISSO NÃO É UM NÚMERO");
         res.sendStatus(400);
-    }else{
+    } else {
         // res.send("ISSO É UM NÚMERO");
         var id = parseInt(req.params.id);
 
         var game = DB.games.find(g => g.id == id);
 
-        if(game != undefined){
+        if (game != undefined) {
             res.statusCode = 200;
             res.json(game);
-        }else{
+        } else {
             res.sendStatus(404);
         }
     }
 });
-var IdG = 1;
+var IdG = 2;
 // CADASTRAR UM GAME
-app.post("/game",(req, res) => { 
-    var {title, price, year} = req.body;
+app.post("/game", (req, res) => {
+    if (IdG == 2 || IdG == 23 || IdG == 65) {
+        IdG++;
+    }
+    var { title, price, year } = req.body;
     DB.games.push({
         id: IdG,
         title,
@@ -75,18 +78,18 @@ app.post("/game",(req, res) => {
     res.sendStatus(200);
 })
 
-app.delete("/game/:id",(req, res) => {
-    if(isNaN(req.params.id)){
+app.delete("/game/:id", (req, res) => {
+    if (isNaN(req.params.id)) {
         res.sendStatus(400);
-    }else{
+    } else {
         var id = parseInt(req.params.id);
         // var game = DB.games.find(g => g.id == id);
         var index = DB.games.findIndex(g => g.id == id);
 
-        if(index == -1){
+        if (index == -1) {
             res.sendStatus(404);
-        }else{
-            DB.games.splice(index,1);
+        } else {
+            DB.games.splice(index, 1);
             res.sendStatus(200);
         }
     }
@@ -95,42 +98,42 @@ app.delete("/game/:id",(req, res) => {
 // Na edição de dados em API pode usar:
 // PUT (recomendado), POST, PATCH 
 
-app.put("/game/:id",(req, res) => {
+app.put("/game/:id", (req, res) => {
 
-    if(isNaN(req.params.id)){
+    if (isNaN(req.params.id)) {
         res.sendStatus(400);
-    }else{
-        
+    } else {
+
         var id = parseInt(req.params.id);
 
         var game = DB.games.find(g => g.id == id);
 
-        if(game != undefined){
+        if (game != undefined) {
 
-            var {title, price, year} = req.body;
+            var { title, price, year } = req.body;
 
-            
-            if(title != undefined){
+
+            if (title != undefined) {
                 game.title = title;
             }
 
-            if(price != undefined){
+            if (price != undefined) {
                 game.price = price;
             }
 
-            if(year != undefined){
+            if (year != undefined) {
                 game.year = year;
             }
-            
+
             res.sendStatus(200);
 
-        }else{
+        } else {
             res.sendStatus(404);
         }
     }
 
 });
 
-app.listen(45678,() => {
+app.listen(45678, () => {
     console.log("API RODANDO!");
 });
