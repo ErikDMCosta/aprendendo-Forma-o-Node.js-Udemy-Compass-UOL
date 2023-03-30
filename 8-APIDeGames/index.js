@@ -35,8 +35,27 @@ var DB = {
             year: 2021,
             price: 99
         }
+    ],
+    users: [
+        {
+            id: 1,
+            name: "Érik DM Costa",
+            email: "erikdmcosta@email.com",
+            password: "nodejs<3"
+        },
+        {
+            id: 20,
+            name: "Guilherme",
+            email: "guilherme@email.com",
+            password: "java123"
+        }
     ]
 }
+
+app.post("/games", (req, res) => {
+    res.statusCode = 200;
+    res.json(DB.games);
+});
 
 app.get("/games", (req, res) => {
     res.statusCode = 200;
@@ -132,6 +151,28 @@ app.put("/game/:id", (req, res) => {
         }
     }
 
+});
+
+app.post("/auth", (req, res) => {
+    var { email, password } = req.body;
+    if (email != undefined) {
+        var user = DB.users.find(u => u.email == email);
+        if (user != undefined) {
+            if (user.password == password) {
+                res.status = 200;
+                res.json({ token: "TOKEN FALSO!" });
+            } else {
+                res.status = 401;
+                res.json({ err: "Credencias Inválidas!" });
+            }
+        } else {
+            res.status = 404;
+            res.json({ err: "O E-mail enviado não existe na base de dados!" });
+        }
+    } else {
+        res.status = 400;
+        res.json({ err: "O E-mail enviado é inválido" });
+    }
 });
 
 app.listen(45678, () => {
