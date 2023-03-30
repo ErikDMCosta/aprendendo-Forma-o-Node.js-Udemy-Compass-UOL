@@ -2,12 +2,39 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+
+const JWTSecret = "sjfkjhsdhfksdjfhksdjfhksdjhfjhsfdghjfgsdfgjshdfsdgfjhsd";
 
 app.use(cors());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+function auth(req, res, next) {
+    const authToken = req.headers('authorization');
+    if (authToken != undefined) {
+        const bearer = authToken.split(' ');
+        // console.log(bearer);
+        var token = bearer[1];
+        jwt.verify(token, JWTSecret, (err, data) => {
+            if (err) {
+                res.status(401);
+                res.json({ err: "Toekn inválido!" });
+            } else {
+                req.token = token;
+                req.loggedUser = { id: data.id, email: data.email };
+                req.empresa = "Guia do Dev";
+                // console.log(data);
+                next();
+            }
+        });
+    } else {
+        res.statusCode = 401;
+        res.json({ err: "Toekn inválido!" });
+    }
+    // console.log(authToken);
+}
 
 var DB = {
     games: [
@@ -52,14 +79,9 @@ var DB = {
     ]
 }
 
-app.post("/games", (req, res) => {
-    res.statusCode = 200;
-    res.json(DB.games);
-});
-
 app.get("/games", (req, res) => {
     res.statusCode = 200;
-    res.json(DB.games);
+    res.json({ empresa: req.empresa, usaer: req.loggedUser, games: DB.games });
 });
 
 app.get("/game/:id", (req, res) => {
@@ -159,8 +181,16 @@ app.post("/auth", (req, res) => {
         var user = DB.users.find(u => u.email == email);
         if (user != undefined) {
             if (user.password == password) {
-                res.status(200);
-                res.json({ token: "TOKEN FALSO!" });
+                jwt.sign({ id: user.id, email: user.email }, JWTSecret, { expiresIn: '48h' }, (err, token) => {
+                    if (err) {
+                        req.status(400);
+                        res.json({ token: "Falha Interna" });
+                    } else {
+                        res.status(200);
+                        // res.json({ token: "TOKEN FALSO!" });
+                        res.json({ token: token });
+                    }
+                });
             } else {
                 res.status(401);
                 res.json({ err: "Credencias Inválidas!" });
