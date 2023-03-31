@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Loja de Games</title>
   <hr>
   <h4>Lista de Games</h4>
@@ -30,6 +30,11 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
+  var axiosConfig = {
+    headers: {
+      Authorization: "Bearer" + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlcmlrZG1jb3N0YUBlbWFpbC5jb20iLCJpYXQiOjE2ODAyNjQ0MzksImV4cCI6MTY4MDQzNzIzOX0.sClAD2Hjq47J4PTgJNCLLkd6OyVKFuHHAltFATFO2a0"
+    }
+  }
   function createGame() {
     var titleInput = document.getElementById("title");
     var yearInput = document.getElementById("year");
@@ -102,7 +107,7 @@
   }
 
   // console.log(axios);
-  axios.get("http://localhost:45678/games").then(response => {
+  axios.get("http://localhost:45678/games", axiosConfig).then(response => {
     // console.log(response);
     var games = response.data;
     // console.log(games);
