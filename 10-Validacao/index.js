@@ -3,6 +3,7 @@ const app = express();
 var session = require('express-session')
 var flash = require('express-flash')
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 
 app.set('view engine', 'ejs');
 
@@ -12,11 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(cookieParser("qualqcoisa"));
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  // cookie: { secure: true }
+  cookie: { maxAge: 60000 } // Equivalente 1H
 }))
 
 app.use(flash());
