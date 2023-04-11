@@ -64,7 +64,7 @@ var DB = {
     clientPersons: [
         {
             id: 1,
-            namePerson: "Marlene Nair Camila Dias",
+            namePerson: "Marlene",
             gender: "F",
             date: "13/03/1966",
             age: 57,
@@ -169,7 +169,7 @@ app.get("/citypersons", (req, res) => {
     callJson(req, res, staCod["Sucess"], resJson);
 });
 
-// Listando em JSON um Cidade e os Clientes que moram
+// Listando em JSON um Cidade cadastrada
 app.get("/cityperson/nameCity/:nameCity", (req, res) => {
     var nameCity = req.params.nameCity;
     var person = DB.cityPersons.find(c => c.nameCity == nameCity);
@@ -180,12 +180,38 @@ app.get("/cityperson/nameCity/:nameCity", (req, res) => {
     }
 });
 
-// Listando em JSON um Estado e os Clientes que moram
+// Listando em JSON um Estado cadastrado
 app.get("/cityperson/stateCity/:stateCity", (req, res) => {
     var stateCity = req.params.stateCity;
     var city = DB.cityPersons.find(c => c.stateCity == stateCity);
     if (city != undefined) {
         callJson(req, res, staCod["Sucess"], city);
+    } else {
+        res.sendStatus(staCod["Not found"]);
+    }
+});
+
+// Listando em JSON um ID do Cliente cadastrado
+app.get("/cityperson/idPerson/:id", (req, res) => {
+    if (isNaN(req.params.id)) {
+        res.sendStatus(staCod["Bad request"]);
+    } else {
+        var id = parseInt(req.params.id);
+        var person = DB.clientPersons.find(c => c.id == id);
+        if (person != undefined) {
+            callJson(req, res, staCod["Sucess"], person);
+        } else {
+            res.sendStatus(staCod["Not found"]);
+        }
+    }
+});
+
+// Listando em JSON um Nome do Cliente cadastrado
+app.get("/cityperson/namePerson/:namePerson", (req, res) => {
+    var namePerson = req.params.namePerson;
+    var person = DB.clientPersons.find(c => c.namePerson == namePerson);
+    if (person != undefined) {
+        callJson(req, res, staCod["Sucess"], person);
     } else {
         res.sendStatus(staCod["Not found"]);
     }
