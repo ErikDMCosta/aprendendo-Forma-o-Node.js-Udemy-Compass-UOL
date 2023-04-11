@@ -240,7 +240,7 @@ app.post("/person", (req, res) => {
         IdG++;
     }
     var { namePerson, gender, date, age, city } = req.body;
-    DB.cityPersons.push({
+    DB.clientPersons.push({
         id: IdG,
         namePerson,
         gender,
@@ -258,11 +258,11 @@ app.delete("/person/:id", (req, res) => {
         res.sendStatus(staCod["Bad request"]);
     } else {
         var id = parseInt(req.params.id);
-        var index = DB.persons.findIndex(g => g.id == id);
+        var index = DB.clientPersons.findIndex(c => c.id == id);
         if (index == -1) {
             res.sendStatus(staCod["Not found"]);
         } else {
-            DB.persons.splice(index, 1);
+            DB.clientPersons.splice(index, 1);
             res.sendStatus(staCod["Sucess"]);
         }
     }
