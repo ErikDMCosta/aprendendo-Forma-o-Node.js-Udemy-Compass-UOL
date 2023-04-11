@@ -278,19 +278,19 @@ app.put("/person/:id", (req, res) => {
         if (person != undefined) {
             var { namePerson, gender, date, age, city } = req.body;
             if (namePerson != undefined) {
-                game.namePerson = namePerson;
+                person.namePerson = namePerson;
             }
             if (gender != undefined) {
-                game.gender = gender;
+                person.gender = gender;
             }
             if (date != undefined) {
-                game.date = date;
+                person.date = date;
             }
             if (age != undefined) {
-                game.age = age;
+                person.age = age;
             }
             if (city != undefined) {
-                game.city = city;
+                person.city = city;
             }
             res.sendStatus(staCod["Sucess"]);
         } else {
