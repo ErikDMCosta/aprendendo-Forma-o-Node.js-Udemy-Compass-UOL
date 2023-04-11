@@ -220,17 +220,14 @@ app.get("/cityperson/namePerson/:namePerson", (req, res) => {
 // Cadastrar um City no JSON usando POSTMAN
 var IdG = 2;
 app.post("/city", (req, res) => {
-    if (IdG == 2 || IdG == 5 || IdG == 6 || IdG == 8) {
+    if (IdG == 2 || IdG == 4 || IdG == 5 || IdG == 6 || IdG == 8) {
         IdG++;
     }
-    var { namePerson, gender, date, age, city } = req.body;
+    var { nameCity, stateCity } = req.body;
     DB.cityPersons.push({
         id: IdG,
-        namePerson,
-        gender,
-        date,
-        age,
-        city
+        nameCity,
+        stateCity
     });
     IdG++;
     res.sendStatus(staCod["Sucess"]);
@@ -242,11 +239,14 @@ app.post("/person", (req, res) => {
     if (IdG == 2 || IdG == 5 || IdG == 6 || IdG == 8) {
         IdG++;
     }
-    var { nameCity, stateCity } = req.body;
+    var { namePerson, gender, date, age, city } = req.body;
     DB.cityPersons.push({
         id: IdG,
-        nameCity,
-        stateCity
+        namePerson,
+        gender,
+        date,
+        age,
+        city
     });
     IdG++;
     res.sendStatus(staCod["Sucess"]);
