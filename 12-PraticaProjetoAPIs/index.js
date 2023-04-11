@@ -197,7 +197,7 @@ app.get("/cityperson/idPerson/:id", (req, res) => {
         res.sendStatus(staCod["Bad request"]);
     } else {
         var id = parseInt(req.params.id);
-        var person = DB.clientPersons.find(c => c.id == id);
+        var person = DB.clientPersons.find(p => p.id == id);
         if (person != undefined) {
             callJson(req, res, staCod["Sucess"], person);
         } else {
@@ -268,27 +268,35 @@ app.delete("/person/:id", (req, res) => {
     }
 });
 
-// Atualizar um Person no JSON usando POSTMAN
+// Atualizar o nome de Person no JSON usando POSTMAN
 app.put("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(staCod["Bad request"]);
     } else {
         var id = parseInt(req.params.id);
-        var person = DB.persons.find(g => g.id == id);
+        var person = DB.clientPersons.find(p => p.id == id);
         if (person != undefined) {
-            var { nameCity, stateCity } = req.body;
-            if (nameCity != undefined) {
-                person.nameCity = nameCity;
+            var { namePerson, gender, date, age, city } = req.body;
+            if (namePerson != undefined) {
+                game.namePerson = namePerson;
             }
-            if (stateCity != undefined) {
-                person.stateCity = stateCity;
+            if (gender != undefined) {
+                game.gender = gender;
+            }
+            if (date != undefined) {
+                game.date = date;
+            }
+            if (age != undefined) {
+                game.age = age;
+            }
+            if (city != undefined) {
+                game.city = city;
             }
             res.sendStatus(staCod["Sucess"]);
         } else {
             res.sendStatus(staCod["Not found"]);
         }
     }
-
 });
 
 app.listen(45678, () => {
