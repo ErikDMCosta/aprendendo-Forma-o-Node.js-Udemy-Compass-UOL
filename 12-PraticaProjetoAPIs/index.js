@@ -2,42 +2,12 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
-
-const JWTSecret = "6r1and0Pr@3tic@1r1lh@73$$@$&31d@d3$";
 
 app.use(cors());
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-function auth(req, res, next) {
-    const authToken = req.headers('authorization');
-    if (authToken != undefined) {
-        const bearer = authToken.split(' ');
-        // console.log(bearer);
-        var token = bearer[1];
-        jwt.verify(token, JWTSecret, (err, data) => {
-            if (err) {
-                res.status(401);
-                app.set('json spaces', 2);
-                res.json({ err: "Token inválido!" });
-            } else {
-                req.token = token;
-                req.loggedPerson = { id: data.id, namePerson: data.namePerson };
-                req.empresa = "APIs Práticas";
-                // console.log(data);
-                next();
-            }
-        });
-    } else {
-        res.statusCode = 401;
-        app.set('json spaces', 2);
-        res.json({ err: "Token inválido!" });
-    }
-    // console.log(authToken);
-}
-
+// Registro de cityPersons e clientPersons em "BD Fictício"
 var DB = {
     cityPersons: [
         {
@@ -176,107 +146,119 @@ var DB = {
     ]
 }
 
+// StatusCode como solicitados no enunciado
+const staCod = {
+    "Sucess": 200,
+    "Created": 201,
+    "No content": 204,
+    "Bad request": 400, // exceção a este
+    "Not found": 404,
+    "Internal Server Error": 500
+}
+
+// Método criado para evitar redundancia de chamada JSON
 function callJson(req, res, staCod, resJson) {
     res.statusCode = staCod;
     app.set('json spaces', 2); // Formatando a Estrutura JSON recebida
     res.json(resJson);
 }
 
+// Listando em JSON todos os Registros de cityPersons e clientPersons
 app.get("/personscitys", (req, res) => {
     resJson = { city: DB.cityPersons, client: DB.clientPersons };
-    callJson(req, res, 200, resJson);
+    callJson(req, res, staCod["Sucess"], resJson);
 });
 
+// Listando em JSON um Cidade e os Clientes que moram
 app.get("/cityperson/nameCity/:nameCity", (req, res) => {
     var nameCity = req.params.nameCity;
-
     var person = DB.cityPersons.find(c => c.nameCity == nameCity);
-
     if (person != undefined) {
-        callJson(req, res, 200, person);
+        callJson(req, res, staCod["Sucess"], person);
     } else {
-        res.sendStatus(404);
+        res.sendStatus(staCod["Not found"]);
     }
-
 });
 
+// Listando em JSON um Estado e os Clientes que moram
 app.get("/cityperson/stateCity/:stateCity", (req, res) => {
     var stateCity = req.params.stateCity;
-
     var city = DB.cityPersons.find(c => c.stateCity == stateCity);
-
     if (city != undefined) {
-        callJson(req, res, 200, city);
+        callJson(req, res, staCod["Sucess"], city);
     } else {
-        res.sendStatus(404);
+        res.sendStatus(staCod["Not found"]);
     }
-
 });
+
+// Cadastrar um City no JSON
+var IdG = 2;
+app.post("/city", (req, res) => {
+    if (IdG == 2 || IdG == 5 || IdG == 6 || IdG == 8) {
+        IdG++;
+    }
+    var { namePerson, gender, date, age, city } = req.body;
+    DB.cityPersons.push({
+        id: IdG,
+        namePerson,
+        gender,
+        date,
+        age,
+        city
+    });
+    IdG++;
+    res.sendStatus(staCod["Sucess"]);
+})
 
 // Cadastrar um Person no JSON
 var IdG = 2;
 app.post("/person", (req, res) => {
-    if (IdG == 2 || IdG == 23 || IdG == 65) {
+    if (IdG == 2 || IdG == 5 || IdG == 6 || IdG == 8) {
         IdG++;
     }
-    var { nameCity, price, stateCity } = req.body;
+    var { nameCity, stateCity } = req.body;
     DB.cityPersons.push({
         id: IdG,
         nameCity,
         stateCity
     });
     IdG++;
-    res.sendStatus(200);
+    res.sendStatus(staCod["Sucess"]);
 })
 
 // Deletar um Person no JSON
 app.delete("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
-        res.sendStatus(400);
+        res.sendStatus(staCod["Bad request"]);
     } else {
         var id = parseInt(req.params.id);
         var index = DB.persons.findIndex(g => g.id == id);
-
         if (index == -1) {
-            res.sendStatus(404);
+            res.sendStatus(staCod["Not found"]);
         } else {
             DB.persons.splice(index, 1);
-            res.sendStatus(200);
+            res.sendStatus(staCod["Sucess"]);
         }
     }
 });
 
 app.put("/person/:id", (req, res) => {
-
     if (isNaN(req.params.id)) {
-        res.sendStatus(400);
+        res.sendStatus(staCod["Bad request"]);
     } else {
-
         var id = parseInt(req.params.id);
-
         var person = DB.persons.find(g => g.id == id);
-
         if (person != undefined) {
-
-            var { nameCity, price, stateCity } = req.body;
-
-
+            var { nameCity, stateCity } = req.body;
             if (nameCity != undefined) {
                 person.nameCity = nameCity;
             }
-
-            if (price != undefined) {
-                person.price = price;
-            }
-
             if (stateCity != undefined) {
                 person.stateCity = stateCity;
             }
-
-            res.sendStatus(200);
-
+            res.sendStatus(staCod["Sucess"]);
         } else {
-            res.sendStatus(404);
+            res.sendStatus(staCod["Not found"]);
         }
     }
 
