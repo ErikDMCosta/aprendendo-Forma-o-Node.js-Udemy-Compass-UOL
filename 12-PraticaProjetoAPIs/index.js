@@ -242,6 +242,7 @@ app.delete("/person/:id", (req, res) => {
     }
 });
 
+// Atualizar um Person no JSON
 app.put("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(staCod["Bad request"]);
