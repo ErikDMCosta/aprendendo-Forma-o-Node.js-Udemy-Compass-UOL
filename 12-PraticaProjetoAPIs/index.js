@@ -164,7 +164,7 @@ function callJson(req, res, staCod, resJson) {
 }
 
 // Listando em JSON todos os Registros de cityPersons e clientPersons
-app.get("/personscitys", (req, res) => {
+app.get("/citypersons", (req, res) => {
     resJson = { city: DB.cityPersons, client: DB.clientPersons };
     callJson(req, res, staCod["Sucess"], resJson);
 });
