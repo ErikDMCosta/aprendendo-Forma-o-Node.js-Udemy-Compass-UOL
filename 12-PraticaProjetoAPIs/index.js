@@ -191,7 +191,7 @@ app.get("/cityperson/stateCity/:stateCity", (req, res) => {
     }
 });
 
-// Cadastrar um City no JSON
+// Cadastrar um City no JSON usando POSTMAN
 var IdG = 2;
 app.post("/city", (req, res) => {
     if (IdG == 2 || IdG == 5 || IdG == 6 || IdG == 8) {
@@ -210,7 +210,7 @@ app.post("/city", (req, res) => {
     res.sendStatus(staCod["Sucess"]);
 })
 
-// Cadastrar um Person no JSON
+// Cadastrar um Person no JSON usando POSTMAN
 var IdG = 2;
 app.post("/person", (req, res) => {
     if (IdG == 2 || IdG == 5 || IdG == 6 || IdG == 8) {
@@ -226,7 +226,7 @@ app.post("/person", (req, res) => {
     res.sendStatus(staCod["Sucess"]);
 })
 
-// Deletar um Person no JSON
+// Deletar um Person no JSON usando POSTMAN
 app.delete("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(staCod["Bad request"]);
@@ -242,7 +242,7 @@ app.delete("/person/:id", (req, res) => {
     }
 });
 
-// Atualizar um Person no JSON
+// Atualizar um Person no JSON usando POSTMAN
 app.put("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
         res.sendStatus(staCod["Bad request"]);
