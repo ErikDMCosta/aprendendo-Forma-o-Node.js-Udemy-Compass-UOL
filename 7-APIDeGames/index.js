@@ -20,7 +20,7 @@ function auth(req, res, next) {
         jwt.verify(token, JWTSecret, (err, data) => {
             if (err) {
                 res.status(401);
-                res.json({ err: "Toekn inválido!" });
+                res.json({ err: "Token inválido!" });
             } else {
                 req.token = token;
                 req.loggedUser = { id: data.id, email: data.email };
@@ -31,7 +31,7 @@ function auth(req, res, next) {
         });
     } else {
         res.statusCode = 401;
-        res.json({ err: "Toekn inválido!" });
+        res.json({ err: "Token inválido!" });
     }
     // console.log(authToken);
 }
