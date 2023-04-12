@@ -143,7 +143,7 @@ callJson(req, res, staCod["Sucess"], person);
 
 ## A seguir sobre os Endpoints da APIRest
 ### GET /citypersons
-Esse endpoint é responsável por retornar a listagem de todos os Cidades (cityPersons) e Cliente (clientPersons) cadastrados no "banco de dados".
+Esse endpoint é responsável por retornar a listagem em JSON de todos os Cidades (cityPersons) e Cliente (clientPersons) cadastrados no "banco de dados".
 
 Caso essa resposta aconteça você vai receber a listagem como no Exemplo de Resposta:
 ```
@@ -167,3 +167,29 @@ Caso essa resposta aconteça você vai receber a listagem como no Exemplo de Res
     ]
 }
 ```
+### GET /cityperson/nameCity/:nameCity"
+Esse endpoint é responsável por retornar a listagem em JSON de um nome entre as Cidades (cityPersons) cadastrados no "banco de dados".
+
+### GET /cityperson/nameCity/:nameCity"
+Esse endpoint é responsável por retornar a listagem em JSON de um nome entre as Cidades (cityPersons) cadastrados no "banco de dados".
+
+### GET /cityperson/stateCity/:stateCity
+Esse endpoint é responsável por retornar a listagem em JSON de um estado entre as Cidades (cityPersons) cadastrados no "banco de dados".
+
+### GET /cityperson/idPerson/:id"
+Esse endpoint é responsável por retornar a listagem em JSON de uma pessoa passando a identificação da pessoa (id) entre os Clientes (clientPersons) cadastrados no "banco de dados".
+
+### GET /cityperson/namePerson/:namePerson"
+Esse endpoint é responsável por retornar a listagem em JSON de uma pessoa, passando como paramêtro o nome da pessoa (namePerson) entre os Clientes (clientPersons) cadastrados no "banco de dados".
+
+### POST /city
+Esse endpoint é responsável por cadastrar os dados de uma cidade em JSON e armazenar em Cidades (cityPersons) do "banco de dados" no JSON usando POSTMAN.
+
+### POST /person
+Esse endpoint é responsável por cadastrar os dados de uma pessoa em JSON e armazenar em Clientes (clientPersons) do "banco de dados" no JSON usando POSTMAN.
+
+### DELETE /person/:id
+Esse endpoint é responsável por deletar os dados de uma pessoa, passando como paramêtro a identificação da pessoa (id) entre os Clientes (clientPersons) já cadastrados no "banco de dados" usando POSTMAN.
+
+### PUT /person/:id
+Esse endpoint é responsável por atualizar os dados de uma pessoa em especial o nome, passando como paramêtro a identificação da pessoa (id) entre os Clientes (clientPersons) já cadastrados no "banco de dados" usando POSTMAN.
