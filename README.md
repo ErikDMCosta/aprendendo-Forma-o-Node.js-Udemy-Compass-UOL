@@ -130,7 +130,18 @@ Elaborado a atividade seguindo o enunciado disponível na trilha de aprendizado,
 - "Not found": 404
 - "Internal Server Error": 500
 
-## Endpoints
+Neste sentido foi elaborado um método afim de eliminar redudâncias, este chamado callJson(req, res, staCod, resJson) no qual é passado como paramêtros:
+- requisição (req)
+- resposta (res)
+- definação do statuscode (staCod)
+- retorno do JSON (resJson)
+
+Abaixo está um exemplo em código:
+```
+callJson(req, res, staCod["Sucess"], person);
+```
+
+## A seguir sobre os Endpoints da APIRest
 ### GET /citypersons
 Esse endpoint é responsável por retornar a listagem de todos os Cidades (cityPersons) e Cliente (clientPersons) cadastrados no "banco de dados".
 
