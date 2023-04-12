@@ -249,7 +249,7 @@ app.post("/person", (req, res) => {
         city
     });
     IdG++;
-    res.sendStatus(staCod["Sucess"]);
+    res.sendStatus(staCod["Created"]);
 })
 
 // Deletar um Person no JSON usando POSTMAN
