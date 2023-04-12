@@ -32,7 +32,7 @@ var DB = {
         },
         {
             id: 8,
-            nameCity: "Rio Branco",
+            nameCity: "Cruzeiro do Sul",
             stateCity: "AC"
         },
         {
@@ -100,7 +100,7 @@ var DB = {
             gender: "F",
             date: "02/04/1963",
             age: 60,
-            city: "Rio Branco"
+            city: "Cruzeiro do Sul"
         },
         {
             id: 10,
@@ -183,7 +183,7 @@ app.get("/cityperson/nameCity/:nameCity", (req, res) => {
 // Listando em JSON um Estado cadastrado
 app.get("/cityperson/stateCity/:stateCity", (req, res) => {
     var stateCity = req.params.stateCity;
-    var city = DB.cityPersons.find(c => c.stateCity == stateCity);
+    var city = DB.cityPersons.filter(c => c.stateCity == stateCity);
     if (city != undefined) {
         callJson(req, res, staCod["Sucess"], city);
     } else {
@@ -209,7 +209,7 @@ app.get("/cityperson/idPerson/:id", (req, res) => {
 // Listando em JSON um Nome do Cliente cadastrado
 app.get("/cityperson/namePerson/:namePerson", (req, res) => {
     var namePerson = req.params.namePerson;
-    var person = DB.clientPersons.find(c => c.namePerson == namePerson);
+    var person = DB.clientPersons.filter(c => c.namePerson == namePerson);
     if (person != undefined) {
         callJson(req, res, staCod["Sucess"], person);
     } else {
