@@ -134,3 +134,25 @@ Elaborado a atividade seguindo o enunciado disponível na trilha de aprendizado,
 ### GET /citypersons
 Esse endpoint é responsável por retornar a listagem de todos os Cidades (cityPersons) e Cliente (clientPersons) cadastrados no "banco de dados".
 
+Caso essa resposta aconteça você vai receber a listagem como no Exemplo de Resposta:
+```
+{
+    cityPersons: [
+        {
+            id: 1,
+            nameCity: "Santana",
+            stateCity: "AP"
+        }
+    ],
+    clientPersons: [
+        {
+            id: 1,
+            namePerson: "Marlene",
+            gender: "F",
+            date: "13/03/1966",
+            age: 57,
+            city: "Santana"
+        }
+    ]
+}
+```
