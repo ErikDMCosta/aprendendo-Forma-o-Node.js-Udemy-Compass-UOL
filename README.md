@@ -1,6 +1,8 @@
 # aprendendo-Formacao-Node.js-Udemy-Compass-UOL
 Neste repositório deixarei minhas práticas feitas durante o curso de 'Formação Node.js 'junto a prática 'Documentação na prática' da trilha Blockchain Apprentice da Udemy pelo programa de estágio Compass UOL.
 
+**_OBS: Abaixo próximo ao final se encontra um trecho com a documentação da API proposta no enunciado da trilha na Udemy_**.
+
 Esta API é utilizada para TAL e TAL...
 ## Endpoints
 ### GET /games
@@ -83,3 +85,52 @@ Exemplo de resposta:
 ```
 {err: "Credenciais inválidas!"}
 ```
+
+---
+
+# Documentação da __*PraticaProjetoAPIs*__
+
+Elaborado a atividade seguindo o enunciado disponível na trilha de aprendizado, trata-se de API que contemplem as seguintes operações expostas como endpoints REST em JS.
+
+## Neste será possível realizar as seguintes operações:
+
+- Cadastros:
+  - cidade
+  - cliente
+- Consultas:
+  - cidade pelo nome
+  - cidade pelo estado
+  - cliente pelo nome
+  - cliente pelo Id
+- Remoção:
+  - cliente
+- Alteração:
+  - nome do cliente
+
+## Considerando que no cadastro com dados teram:
+
+- Cidades (cityPersons):
+  - id
+  - nome
+  - estado
+
+- Cliente (clientPersons):
+  - nome completo
+  - sexo
+  - data de nascimento
+  - idade
+  - cidade
+  - 
+### Atentendo aos Padrões REST nas requisições e respostas das APIs, com códigos de retorno das seguintes operações:
+
+- "Sucess": 200
+- "Created": 201
+- "No content": 204
+- "Bad request": 400
+- "Not found": 404
+- "Internal Server Error": 500
+
+## Endpoints
+### GET /citypersons
+Esse endpoint é responsável por retornar a listagem de todos os Cidades (cityPersons) e Cliente (clientPersons) cadastrados no "banco de dados".
+
