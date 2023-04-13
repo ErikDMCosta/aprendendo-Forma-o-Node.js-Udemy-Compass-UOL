@@ -120,7 +120,6 @@ Elaborado a atividade seguindo o enunciado disponível na trilha de aprendizado,
   - data de nascimento
   - idade
   - cidade
-  - 
 ### Atentendo aos Padrões REST nas requisições e respostas das APIs, com códigos de retorno das seguintes operações:
 
 - "Sucess": 200

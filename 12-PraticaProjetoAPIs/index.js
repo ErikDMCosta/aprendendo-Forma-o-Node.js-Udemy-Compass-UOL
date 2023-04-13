@@ -146,27 +146,21 @@ var DB = {
     ]
 }
 
-// StatusCode como solicitados no enunciado
-const staCod = {
-    "Sucess": 200,
-    "Created": 201,
-    "No content": 204,
-    "Bad request": 400, // exceção a este
-    "Not found": 404,
-    "Internal Server Error": 500
-}
-
 // Método criado para evitar redundancia de chamada JSON
 function callJson(req, res, staCod, resJson) {
-    res.statusCode = staCod;
-    app.set('json spaces', 2); // Formatando a Estrutura JSON recebida
-    res.json(resJson);
+    if (req == undefined || res == undefined || staCod == undefined || resJson == undefined) {
+        res.sendStatus(500);
+    } else {
+        res.statusCode = staCod;
+        app.set('json spaces', 2); // Formatando a Estrutura JSON recebida
+        res.json(resJson);
+    }
 }
 
 // Listando em JSON todos os Registros de cityPersons e clientPersons
 app.get("/citypersons", (req, res) => {
     resJson = { city: DB.cityPersons, client: DB.clientPersons };
-    callJson(req, res, staCod["Sucess"], resJson);
+    callJson(req, res, 200, resJson);
 });
 
 // Listando em JSON um Cidade cadastrada
@@ -174,9 +168,9 @@ app.get("/cityperson/nameCity/:nameCity", (req, res) => {
     var nameCity = req.params.nameCity;
     var person = DB.cityPersons.find(c => c.nameCity == nameCity);
     if (person != undefined) {
-        callJson(req, res, staCod["Sucess"], person);
+        callJson(req, res, 200, person);
     } else {
-        res.sendStatus(staCod["Not found"]);
+        res.sendStatus(404);
     }
 });
 
@@ -185,23 +179,23 @@ app.get("/cityperson/stateCity/:stateCity", (req, res) => {
     var stateCity = req.params.stateCity;
     var city = DB.cityPersons.filter(c => c.stateCity == stateCity);
     if (city != undefined) {
-        callJson(req, res, staCod["Sucess"], city);
+        callJson(req, res, 200, city);
     } else {
-        res.sendStatus(staCod["Not found"]);
+        res.sendStatus(404);
     }
 });
 
 // Listando em JSON um ID do Cliente cadastrado
 app.get("/cityperson/idPerson/:id", (req, res) => {
     if (isNaN(req.params.id)) {
-        res.sendStatus(staCod["Bad request"]);
+        res.sendStatus(400);
     } else {
         var id = parseInt(req.params.id);
         var person = DB.clientPersons.find(p => p.id == id);
         if (person != undefined) {
-            callJson(req, res, staCod["Sucess"], person);
+            callJson(req, res, 200, person);
         } else {
-            res.sendStatus(staCod["Not found"]);
+            res.sendStatus(404);
         }
     }
 });
@@ -211,9 +205,9 @@ app.get("/cityperson/namePerson/:namePerson", (req, res) => {
     var namePerson = req.params.namePerson;
     var person = DB.clientPersons.filter(c => c.namePerson == namePerson);
     if (person != undefined) {
-        callJson(req, res, staCod["Sucess"], person);
+        callJson(req, res, 200, person);
     } else {
-        res.sendStatus(staCod["Not found"]);
+        res.sendStatus(404);
     }
 });
 
@@ -230,7 +224,7 @@ app.post("/city", (req, res) => {
         stateCity
     });
     IdG++;
-    res.sendStatus(staCod["Sucess"]);
+    res.sendStatus(200);
 })
 
 // Cadastrar um Person no JSON usando POSTMAN
@@ -249,21 +243,21 @@ app.post("/person", (req, res) => {
         city
     });
     IdG++;
-    res.sendStatus(staCod["Created"]);
+    res.sendStatus(201);
 })
 
 // Deletar um Person no JSON usando POSTMAN
 app.delete("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
-        res.sendStatus(staCod["Bad request"]);
+        res.sendStatus(400);
     } else {
         var id = parseInt(req.params.id);
         var index = DB.clientPersons.findIndex(c => c.id == id);
         if (index == -1) {
-            res.sendStatus(staCod["Not found"]);
+            res.sendStatus(404);
         } else {
             DB.clientPersons.splice(index, 1);
-            res.sendStatus(staCod["Sucess"]);
+            res.sendStatus(200);
         }
     }
 });
@@ -271,7 +265,7 @@ app.delete("/person/:id", (req, res) => {
 // Atualizar o nome de Person no JSON usando POSTMAN
 app.put("/person/:id", (req, res) => {
     if (isNaN(req.params.id)) {
-        res.sendStatus(staCod["Bad request"]);
+        res.sendStatus(400);
     } else {
         var id = parseInt(req.params.id);
         var person = DB.clientPersons.find(p => p.id == id);
@@ -292,9 +286,9 @@ app.put("/person/:id", (req, res) => {
             if (city != undefined) {
                 person.city = city;
             }
-            res.sendStatus(staCod["Sucess"]);
+            res.sendStatus(200);
         } else {
-            res.sendStatus(staCod["Not found"]);
+            res.sendStatus(404);
         }
     }
 });
