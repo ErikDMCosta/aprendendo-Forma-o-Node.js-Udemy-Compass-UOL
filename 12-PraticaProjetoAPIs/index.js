@@ -148,13 +148,9 @@ var DB = {
 
 // Método criado para evitar redundancia de chamada JSON
 function callJson(req, res, staCod, resJson) {
-    if (req == undefined || res == undefined || staCod == undefined || resJson == undefined) {
-        res.sendStatus(500);
-    } else {
         res.statusCode = staCod;
         app.set('json spaces', 2); // Formatando a Estrutura JSON recebida
         res.json(resJson);
-    }
 }
 
 // Listando em JSON todos os Registros de cityPersons e clientPersons
@@ -187,6 +183,7 @@ app.get("/cityperson/stateCity/:stateCity", (req, res) => {
 
 // Listando em JSON um ID do Cliente cadastrado
 app.get("/cityperson/idPerson/:id", (req, res) => {
+    // throw("msg qualquer"); // Teste de statuscode 500 Internal Server Error
     if (isNaN(req.params.id)) {
         res.sendStatus(400);
     } else {
@@ -295,4 +292,9 @@ app.put("/person/:id", (req, res) => {
 
 app.listen(45678, () => {
     console.log("API RODANDO!");
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send("Erro Inesperado!");
 });
